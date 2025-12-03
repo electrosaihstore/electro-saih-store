@@ -25,6 +25,7 @@
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
 
+        /* General UI */
         .top-bar { background-color: #111; border-bottom: 1px solid var(--border-color); padding: 5px 0; font-size: 12px; color: var(--text-secondary); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         .top-bar .container { display: flex; justify-content: space-between; }
@@ -72,20 +73,29 @@
         .spinner { display: inline-block; width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: var(--primary-color); animation: spin 1s ease-in-out infinite; margin-bottom: 10px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .sticky-whatsapp { position: fixed; bottom: 20px; right: 20px; background-color: var(--whatsapp-color); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 9999; transition: transform 0.3s; }
-        .sticky-whatsapp:hover { transform: scale(1.1); background-color: var(--whatsapp-dark); }
-
+        /* Modal Styles */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal-content { background-color: var(--card-bg); margin: auto; padding: 0; border: 1px solid var(--border-color); width: 90%; max-width: 800px; border-radius: 8px; box-shadow: 0 5px 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; overflow: hidden; animation: fadeIn 0.3s; }
         .modal-body { display: flex; flex-direction: row; }
         .modal-img-container { width: 50%; background-color: #fff; padding: 20px; display: flex; align-items: center; justify-content: center; }
         .modal-img { max-width: 100%; max-height: 400px; object-fit: contain; }
         .modal-details { width: 50%; padding: 30px; display: flex; flex-direction: column; }
+        
         .close-modal { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; align-self: flex-end; margin-bottom: 10px; }
         .close-modal:hover { color: var(--primary-color); }
+        
         .modal-title { font-size: 24px; font-weight: 700; margin-bottom: 15px; color: var(--text-main); }
         .modal-price { font-size: 28px; color: var(--primary-color); font-weight: 700; margin-bottom: 20px; }
         .modal-desc { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 30px; flex: 1; border-top: 1px solid var(--border-color); padding-top: 15px; }
+
+        /* Checkout Form Styles */
+        .checkout-form { padding: 10px 0; border-top: 1px solid var(--border-color); margin-top: auto; }
+        .checkout-input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border-color); background-color: var(--input-bg); color: var(--text-main); border-radius: 4px; font-family: 'Cairo', sans-serif; font-size: 14px; }
+        .checkout-input:focus { outline: none; border-color: var(--whatsapp-color); }
+        
+        .qty-box { display: flex; align-items: center; margin-bottom: 15px; gap: 10px; background: var(--input-bg); width: fit-content; padding: 5px; border-radius: 4px; border: 1px solid var(--border-color); }
+        .qty-btn { background: var(--primary-color); color: white; border: none; width: 30px; height: 30px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .qty-input { background: transparent; border: none; color: white; width: 40px; text-align: center; font-weight: bold; font-size: 16px; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -97,6 +107,7 @@
             .modal-img { max-height: 250px; }
         }
 
+        .sticky-whatsapp { position: fixed; bottom: 20px; right: 20px; background-color: var(--whatsapp-color); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 9999; transition: transform 0.3s; }
         footer { background-color: #111; color: #ccc; padding: 40px 0 20px; margin-top: auto; border-top: 1px solid var(--border-color); }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; }
         .copyright { text-align: center; border-top: 1px solid #333; padding-top: 20px; font-size: 13px; }
@@ -146,7 +157,6 @@
 
     <div class="container">
         <h3 class="section-title">أحدث المنتجات</h3>
-        
         <div class="products-grid" id="products-container">
             <div class="loader">
                 <div class="spinner"></div>
@@ -155,21 +165,47 @@
         </div>
     </div>
 
+    <!-- Product Modal with Checkout Form -->
     <div id="productModal" class="modal">
         <div class="modal-content">
             <div class="modal-body">
+                <!-- صورة المنتج -->
                 <div class="modal-img-container">
                     <img id="modalImg" src="" alt="Product Image" class="modal-img">
                 </div>
+
+                <!-- تفاصيل المنتج ونموذج الطلب -->
                 <div class="modal-details">
                     <span class="close-modal" onclick="closeModal()">&times;</span>
+                    
                     <div id="modalCategory" style="color:var(--primary-color); font-size:12px; margin-bottom:5px;"></div>
                     <h2 id="modalTitle" class="modal-title"></h2>
                     <div id="modalPrice" class="modal-price"></div>
                     <div id="modalDesc" class="modal-desc"></div>
-                    <button id="modalBtn" class="whatsapp-btn">
-                        <i class="fab fa-whatsapp"></i> اطلب الآن عبر واتساب
-                    </button>
+                    
+                    <!-- نموذج إتمام الطلب -->
+                    <div class="checkout-form">
+                        <h4 style="margin-bottom:10px; color:white;">إتمام الطلب:</h4>
+                        
+                        <!-- الكمية -->
+                        <div class="qty-box">
+                            <span style="color:#aaa; font-size:12px; padding:0 5px;">الكمية:</span>
+                            <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                            <input type="text" id="orderQty" class="qty-input" value="1" readonly>
+                            <button class="qty-btn" onclick="updateQty(1)">+</button>
+                        </div>
+
+                        <!-- معلومات الزبون -->
+                        <input type="text" id="custName" class="checkout-input" placeholder="الاسم الكامل (ضروري)">
+                        <input type="text" id="custCity" class="checkout-input" placeholder="المدينة">
+                        <input type="text" id="custAddress" class="checkout-input" placeholder="العنوان بالتفصيل">
+                        <input type="tel" id="custPhone" class="checkout-input" placeholder="رقم الهاتف (ضروري)">
+
+                        <button onclick="sendOrder()" class="whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i> إرسال الطلب الآن
+                        </button>
+                        <div id="formError" style="color:red; font-size:12px; display:none; margin-top:5px;">يرجى كتابة الاسم ورقم الهاتف.</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -186,13 +222,12 @@
     </footer>
 
     <script>
-        // ==========================================
-        // تم وضع الرابط المباشر الذي أرسلته للتو هنا
-        // ==========================================
-        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiIU8gX3bqyKTSKNrU7mqlYMNw6hZPIai1OLzO6Dwh2t8jUPLqubcRH21tvl3t1UKn5hSCtm61v9wr/pub?output=csv";
+        const SHEET_ID = '1lJVYMPu7yJOzyHLsFCAsXQMrB3EGB9fgZetoMIs10vE';
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/pub?output=csv`;
         const WHATSAPP_LINK_BASE = "https://wa.me/message/QMCNECNIJJT5E1";
 
         let allProducts = [];
+        let currentProduct = {}; // لتخزين بيانات المنتج الحالي المفتوح
 
         async function fetchProducts() {
             try {
@@ -200,15 +235,13 @@
                 if (!response.ok) throw new Error("Network error");
                 const data = await response.text();
                 allProducts = parseCSV(data);
-                
                 generateCategories(allProducts);
                 renderProducts(allProducts);
             } catch (error) {
-                console.error(error);
                 document.getElementById('products-container').innerHTML = `
                     <div style="grid-column: 1/-1; text-align:center; color:red; padding: 20px;">
-                        <h3>خطأ في الاتصال بالملف</h3>
-                        <p>تأكد من نشر الملف.</p>
+                        <h3>خطأ في تحميل البيانات</h3>
+                        <p>تأكد من أن الملف منشور.</p>
                     </div>`;
             }
         }
@@ -216,12 +249,10 @@
         function parseCSV(csvText) {
             const lines = csvText.split('\n');
             if (lines.length < 2) return [];
-            // هنا نحاول تنظيف أسماء الأعمدة جيداً
             const headers = lines[0].split(',').map(h => h.trim().replace(/\r/g, '').toLowerCase());
             const result = [];
             for (let i = 1; i < lines.length; i++) {
                 if (!lines[i].trim()) continue;
-                // استخدام تعبير نمطي للتعامل مع الفواصل داخل النصوص لو وجدت (بشكل بسيط)
                 const currentLine = lines[i].split(',');
                 const obj = {};
                 for (let j = 0; j < headers.length; j++) {
@@ -235,15 +266,9 @@
 
         function generateCategories(products) {
             const categories = new Set();
-            products.forEach(p => {
-                if (p.category && p.category.trim() !== '') {
-                    categories.add(p.category.trim());
-                }
-            });
-
+            products.forEach(p => { if (p.category && p.category.trim() !== '') categories.add(p.category.trim()); });
             const navList = document.getElementById('category-list');
             navList.innerHTML = '<li><a href="#" class="active" onclick="filterByCategory(\'all\', this)">الكل</a></li>';
-            
             categories.forEach(cat => {
                 const li = document.createElement('li');
                 li.innerHTML = `<a href="#" onclick="filterByCategory('${cat}', this)">${cat}</a>`;
@@ -254,119 +279,119 @@
         function renderProducts(products) {
             const container = document.getElementById('products-container');
             container.innerHTML = ''; 
-
             if (products.length === 0) {
-                container.innerHTML = '<p style="color:white; text-align:center; grid-column:1/-1;">لا توجد منتجات مطابقة.</p>';
+                container.innerHTML = '<p style="color:white; text-align:center; grid-column:1/-1;">لا توجد منتجات.</p>';
                 return;
             }
-
             products.forEach((product) => {
                 const title = product.title || 'منتج';
                 const price = product.price || '0';
-                const category = product.category || 'عام';
-                const imgUrl = (product.image && product.image.startsWith('http')) 
-                    ? product.image 
-                    : 'https://via.placeholder.com/300x300?text=No+Image';
-                
+                const imgUrl = (product.image && product.image.startsWith('http')) ? product.image : 'https://via.placeholder.com/300x300?text=No+Image';
                 const badgeHtml = product.badge ? `<span class="badge">${product.badge}</span>` : '';
                 const oldPriceHtml = product.old_price ? `<span class="old-price">${product.old_price}</span>` : '';
                 const safeTitle = title.replace(/'/g, "\\'");
 
-                const productHTML = `
+                container.innerHTML += `
                     <div class="product-card" onclick="openModalWithProduct('${safeTitle}')">
                         ${badgeHtml}
                         <img src="${imgUrl}" alt="${title}" class="product-img" loading="lazy">
-                        <div class="product-category">${category}</div>
+                        <div class="product-category">${product.category || 'عام'}</div>
                         <div class="product-title">${title}</div>
-                        <div class="product-price">
-                            ${price} درهم
-                            ${oldPriceHtml}
-                        </div>
-                        <button class="whatsapp-btn">
-                            <i class="fab fa-whatsapp"></i> التفاصيل والطلب
-                        </button>
-                    </div>
-                `;
-                container.innerHTML += productHTML;
+                        <div class="product-price">${price} درهم ${oldPriceHtml}</div>
+                        <button class="whatsapp-btn"><i class="fas fa-shopping-cart"></i> اطلب الآن</button>
+                    </div>`;
             });
         }
 
+        // ==========================================
+        // Modal & Checkout Logic (Updated)
+        // ==========================================
         function openModalWithProduct(productTitle) {
-            const product = allProducts.find(p => p.title === productTitle);
-            if (!product) return;
+            currentProduct = allProducts.find(p => p.title === productTitle);
+            if (!currentProduct) return;
 
-            const title = product.title || '';
-            const price = product.price || '';
-            const img = (product.image && product.image.startsWith('http')) ? product.image : 'https://via.placeholder.com/300';
-            const desc = product.description || 'تواصل معنا للمزيد من التفاصيل.';
-            const cat = product.category || '';
+            // ملء بيانات المودال
+            document.getElementById('modalTitle').innerText = currentProduct.title;
+            document.getElementById('modalPrice').innerText = currentProduct.price + ' درهم';
+            document.getElementById('modalDesc').innerText = currentProduct.description || 'تواصل معنا للمزيد من التفاصيل.';
+            document.getElementById('modalCategory').innerText = currentProduct.category || '';
+            document.getElementById('modalImg').src = (currentProduct.image && currentProduct.image.startsWith('http')) ? currentProduct.image : 'https://via.placeholder.com/300';
+            
+            // إعادة تعيين حقول الفورم
+            document.getElementById('orderQty').value = "1";
+            document.getElementById('custName').value = "";
+            document.getElementById('custCity').value = "";
+            document.getElementById('custAddress').value = "";
+            document.getElementById('custPhone').value = "";
+            document.getElementById('formError').style.display = 'none';
 
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalPrice').innerText = price + ' درهم';
-            document.getElementById('modalDesc').innerText = desc;
-            document.getElementById('modalCategory').innerText = cat;
-            document.getElementById('modalImg').src = img;
-
-            const btn = document.getElementById('modalBtn');
-            btn.onclick = function() {
-                sendWhatsapp(title, price, img);
-            };
-
-            const modal = document.getElementById('productModal');
-            modal.style.display = "flex";
+            // فتح المودال
+            document.getElementById('productModal').style.display = "flex";
         }
 
-        function closeModal() {
-            document.getElementById('productModal').style.display = "none";
+        function closeModal() { document.getElementById('productModal').style.display = "none"; }
+        window.onclick = function(event) { if (event.target == document.getElementById('productModal')) closeModal(); }
+
+        // التحكم في الكمية
+        function updateQty(change) {
+            let qtyInput = document.getElementById('orderQty');
+            let newQty = parseInt(qtyInput.value) + change;
+            if (newQty < 1) newQty = 1;
+            qtyInput.value = newQty;
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('productModal');
-            if (event.target == modal) {
-                closeModal();
+        // إرسال الطلب (الوظيفة الجديدة)
+        function sendOrder() {
+            // جلب القيم من الحقول
+            const name = document.getElementById('custName').value.trim();
+            const city = document.getElementById('custCity').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const qty = document.getElementById('orderQty').value;
+            const price = parseFloat(currentProduct.price) || 0;
+            const total = price * parseInt(qty);
+
+            // التحقق من الحقول الإجبارية
+            if (name === "" || phone === "") {
+                document.getElementById('formError').style.display = 'block';
+                return;
             }
-        }
 
-        function sendWhatsapp(title, price, image) {
-            const message = `مرحباً Electro saih.store 👋
-أرغب بطلب هذا المنتج:
+            // تنسيق رسالة الواتساب الاحترافية
+            const message = `السلام عليكم Electro saih.store 👋
+أرغب بتأكيد طلب جديد:
 
-📦 *المنتج:* ${title}
-💰 *السعر:* ${price} درهم
-🔗 *الصورة:* ${image}
+📦 *المنتج:* ${currentProduct.title}
+💵 *السعر:* ${currentProduct.price} درهم
+🔢 *الكمية:* ${qty}
+💰 *المجموع:* ${total} درهم
 
-يرجى تأكيد الطلب وتفاصيل الشحن.`;
+👤 *معلومات الزبون:*
+الاسم: ${name}
+الهاتف: ${phone}
+المدينة: ${city}
+العنوان: ${address}
 
+يرجى التواصل معي لتأكيد الشحن وشكراً.`;
+
+            // فتح واتساب
             const url = `${WHATSAPP_LINK_BASE}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
         }
 
         function filterProducts() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allProducts.filter(p => 
-                (p.title && p.title.toLowerCase().includes(query)) || 
-                (p.category && p.category.toLowerCase().includes(query))
-            );
+            const filtered = allProducts.filter(p => (p.title && p.title.toLowerCase().includes(query)) || (p.category && p.category.toLowerCase().includes(query)));
             renderProducts(filtered);
         }
 
         function filterByCategory(category, element) {
             document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
             if(element) element.classList.add('active');
-
-            if (category === 'all') {
-                renderProducts(allProducts);
-            } else {
-                const filtered = allProducts.filter(p => p.category === category);
-                renderProducts(filtered);
-            }
+            renderProducts(category === 'all' ? allProducts : allProducts.filter(p => p.category === category));
         }
 
         window.onload = fetchProducts;
-
-        document.getElementById('searchInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') filterProducts();
-        });
     </script>
 </body>
 </html>
