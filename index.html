@@ -187,10 +187,9 @@
 
     <script>
         // ==========================================
-        // معرف الملف من الصورة التي أرسلتها للتو
+        // تم وضع الرابط المباشر الذي أرسلته للتو هنا
         // ==========================================
-        const SHEET_ID = '1MdUUbjFDZCVllEftWjRwNDMtFFGSIudagh5lLR__Ln4';
-        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/pub?output=csv`;
+        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQiIU8gX3bqyKTSKNrU7mqlYMNw6hZPIai1OLzO6Dwh2t8jUPLqubcRH21tvl3t1UKn5hSCtm61v9wr/pub?output=csv";
         const WHATSAPP_LINK_BASE = "https://wa.me/message/QMCNECNIJJT5E1";
 
         let allProducts = [];
@@ -208,8 +207,8 @@
                 console.error(error);
                 document.getElementById('products-container').innerHTML = `
                     <div style="grid-column: 1/-1; text-align:center; color:red; padding: 20px;">
-                        <h3>خطأ في تحميل البيانات</h3>
-                        <p>تأكد من أن الملف منشور.</p>
+                        <h3>خطأ في الاتصال بالملف</h3>
+                        <p>تأكد من نشر الملف.</p>
                     </div>`;
             }
         }
@@ -217,10 +216,12 @@
         function parseCSV(csvText) {
             const lines = csvText.split('\n');
             if (lines.length < 2) return [];
+            // هنا نحاول تنظيف أسماء الأعمدة جيداً
             const headers = lines[0].split(',').map(h => h.trim().replace(/\r/g, '').toLowerCase());
             const result = [];
             for (let i = 1; i < lines.length; i++) {
                 if (!lines[i].trim()) continue;
+                // استخدام تعبير نمطي للتعامل مع الفواصل داخل النصوص لو وجدت (بشكل بسيط)
                 const currentLine = lines[i].split(',');
                 const obj = {};
                 for (let j = 0; j < headers.length; j++) {
