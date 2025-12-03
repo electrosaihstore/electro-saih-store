@@ -21,16 +21,42 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); direction: rtl; padding-bottom: 60px; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-main); direction: rtl; padding-bottom: 60px; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
 
-        /* General UI */
-        .top-bar { background-color: #111; border-bottom: 1px solid var(--border-color); padding: 5px 0; font-size: 12px; color: var(--text-secondary); }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-        .top-bar .container { display: flex; justify-content: space-between; }
+        /* --- شريط علوي متحرك --- */
+        .top-bar {
+            background-color: #111;
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+            overflow: hidden; /* ضروري لإخفاء النص خارج الصندوق */
+            white-space: nowrap;
+        }
         
+        /* حركة النص */
+        .scrolling-container {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll-text 15s linear infinite;
+        }
+
+        .scrolling-text span {
+            margin: 0 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        @keyframes scroll-text {
+            0% { transform: translateX(100%); } /* يبدأ من اليمين */
+            100% { transform: translateX(-100%); } /* ينتهي في اليسار */
+        }
+
         header { background-color: var(--card-bg); padding: 15px 0; box-shadow: 0 2px 5px rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         .header-content { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         .logo { font-size: 24px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: -1px; }
         
@@ -88,7 +114,7 @@
         .modal-price { font-size: 28px; color: var(--primary-color); font-weight: 700; margin-bottom: 20px; }
         .modal-desc { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 30px; flex: 1; border-top: 1px solid var(--border-color); padding-top: 15px; }
 
-        /* Checkout Form Styles */
+        /* Checkout Form */
         .checkout-form { padding: 10px 0; border-top: 1px solid var(--border-color); margin-top: auto; }
         .checkout-input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border-color); background-color: var(--input-bg); color: var(--text-main); border-radius: 4px; font-family: 'Cairo', sans-serif; font-size: 14px; }
         .checkout-input:focus { outline: none; border-color: var(--whatsapp-color); }
@@ -108,6 +134,7 @@
         }
 
         .sticky-whatsapp { position: fixed; bottom: 20px; right: 20px; background-color: var(--whatsapp-color); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 9999; transition: transform 0.3s; }
+        .sticky-whatsapp:hover { transform: scale(1.1); background-color: var(--whatsapp-dark); }
         footer { background-color: #111; color: #ccc; padding: 40px 0 20px; margin-top: auto; border-top: 1px solid var(--border-color); }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; }
         .copyright { text-align: center; border-top: 1px solid #333; padding-top: 20px; font-size: 13px; }
@@ -119,10 +146,16 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- الشريط العلوي المتحرك -->
     <div class="top-bar">
-        <div class="container">
-            <div>مرحباً بكم في Electro saih.store</div>
-            <div><i class="fas fa-phone-alt"></i> اتصل بنا: 0522 00 00 00</div>
+        <div class="scrolling-container">
+            <div class="scrolling-text">
+                <span>مرحباً بكم في Electro saih.store</span>
+                <span>|</span>
+                <span><i class="fas fa-phone-alt"></i> اتصل بنا: 0695050162</span>
+                <span>|</span>
+                <span>توصيل سريع لجميع المدن - الدفع عند الاستلام</span>
+            </div>
         </div>
     </div>
 
@@ -222,12 +255,12 @@
     </footer>
 
     <script>
-        const SHEET_ID = '1lJVYMPu7yJOzyHLsFCAsXQMrB3EGB9fgZetoMIs10vE';
-        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/pub?output=csv`;
+        // الرابط الصحيح الذي يعمل لديك الآن
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vQiIU8gX3bqyKTSKNrU7mqlYMNw6hZPIai1OLzO6Dwh2t8jUPLqubcRH21tvl3t1UKn5hSCtm61v9wr/pub?output=csv`;
         const WHATSAPP_LINK_BASE = "https://wa.me/message/QMCNECNIJJT5E1";
 
         let allProducts = [];
-        let currentProduct = {}; // لتخزين بيانات المنتج الحالي المفتوح
+        let currentProduct = {}; 
 
         async function fetchProducts() {
             try {
@@ -238,10 +271,11 @@
                 generateCategories(allProducts);
                 renderProducts(allProducts);
             } catch (error) {
+                console.error(error);
                 document.getElementById('products-container').innerHTML = `
                     <div style="grid-column: 1/-1; text-align:center; color:red; padding: 20px;">
                         <h3>خطأ في تحميل البيانات</h3>
-                        <p>تأكد من أن الملف منشور.</p>
+                        <p>تأكد من وجود اتصال بالإنترنت.</p>
                     </div>`;
             }
         }
@@ -304,20 +338,19 @@
         }
 
         // ==========================================
-        // Modal & Checkout Logic (Updated)
+        // Modal & Checkout Logic
         // ==========================================
         function openModalWithProduct(productTitle) {
             currentProduct = allProducts.find(p => p.title === productTitle);
             if (!currentProduct) return;
 
-            // ملء بيانات المودال
             document.getElementById('modalTitle').innerText = currentProduct.title;
             document.getElementById('modalPrice').innerText = currentProduct.price + ' درهم';
             document.getElementById('modalDesc').innerText = currentProduct.description || 'تواصل معنا للمزيد من التفاصيل.';
             document.getElementById('modalCategory').innerText = currentProduct.category || '';
             document.getElementById('modalImg').src = (currentProduct.image && currentProduct.image.startsWith('http')) ? currentProduct.image : 'https://via.placeholder.com/300';
             
-            // إعادة تعيين حقول الفورم
+            // Reset fields
             document.getElementById('orderQty').value = "1";
             document.getElementById('custName').value = "";
             document.getElementById('custCity').value = "";
@@ -325,14 +358,12 @@
             document.getElementById('custPhone').value = "";
             document.getElementById('formError').style.display = 'none';
 
-            // فتح المودال
             document.getElementById('productModal').style.display = "flex";
         }
 
         function closeModal() { document.getElementById('productModal').style.display = "none"; }
         window.onclick = function(event) { if (event.target == document.getElementById('productModal')) closeModal(); }
 
-        // التحكم في الكمية
         function updateQty(change) {
             let qtyInput = document.getElementById('orderQty');
             let newQty = parseInt(qtyInput.value) + change;
@@ -340,9 +371,7 @@
             qtyInput.value = newQty;
         }
 
-        // إرسال الطلب (الوظيفة الجديدة)
         function sendOrder() {
-            // جلب القيم من الحقول
             const name = document.getElementById('custName').value.trim();
             const city = document.getElementById('custCity').value.trim();
             const address = document.getElementById('custAddress').value.trim();
@@ -351,13 +380,11 @@
             const price = parseFloat(currentProduct.price) || 0;
             const total = price * parseInt(qty);
 
-            // التحقق من الحقول الإجبارية
             if (name === "" || phone === "") {
                 document.getElementById('formError').style.display = 'block';
                 return;
             }
 
-            // تنسيق رسالة الواتساب الاحترافية
             const message = `السلام عليكم Electro saih.store 👋
 أرغب بتأكيد طلب جديد:
 
@@ -374,7 +401,6 @@
 
 يرجى التواصل معي لتأكيد الشحن وشكراً.`;
 
-            // فتح واتساب
             const url = `${WHATSAPP_LINK_BASE}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
         }
@@ -392,6 +418,10 @@
         }
 
         window.onload = fetchProducts;
+
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') filterProducts();
+        });
     </script>
 </body>
 </html>
