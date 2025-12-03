@@ -25,12 +25,10 @@
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
 
-        /* الشريط العلوي */
         .top-bar { background-color: #111; border-bottom: 1px solid var(--border-color); padding: 5px 0; font-size: 12px; color: var(--text-secondary); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         .top-bar .container { display: flex; justify-content: space-between; }
         
-        /* الهيدر */
         header { background-color: var(--card-bg); padding: 15px 0; box-shadow: 0 2px 5px rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
         .header-content { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
         .logo { font-size: 24px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: -1px; }
@@ -43,24 +41,17 @@
         .action-item { display: flex; flex-direction: column; align-items: center; font-size: 12px; cursor: pointer; color: var(--text-main); }
         .action-item i { font-size: 20px; margin-bottom: 3px; color: var(--text-secondary); }
 
-        /* القائمة */
         nav { background-color: #222; border-top: 1px solid var(--border-color); overflow-x: auto; white-space: nowrap; }
         .nav-menu { display: flex; gap: 0; }
         .nav-menu li { display: inline-block; }
         .nav-menu a { display: block; padding: 12px 20px; font-size: 14px; font-weight: 600; transition: 0.3s; color: var(--text-main); cursor: pointer; }
         .nav-menu a:hover, .nav-menu a.active { background-color: var(--primary-color); color: white; }
 
-        /* Hero */
-        .hero { 
-            background-color: #111; height: 350px; display: flex; align-items: center; justify-content: center; 
-            background-image: linear-gradient(45deg, #111 25%, #1a1a1a 25%, #1a1a1a 50%, #111 50%, #111 75%, #1a1a1a 75%, #1a1a1a 100%); 
-            background-size: 20px 20px; margin-bottom: 30px; 
-        }
+        .hero { background-color: #111; height: 350px; display: flex; align-items: center; justify-content: center; background-image: linear-gradient(45deg, #111 25%, #1a1a1a 25%, #1a1a1a 50%, #111 50%, #111 75%, #1a1a1a 75%, #1a1a1a 100%); background-size: 20px 20px; margin-bottom: 30px; }
         .hero-text { text-align: center; background: rgba(0,0,0,0.8); padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(255,255,255,0.05); border: 1px solid var(--border-color); }
         .hero-text h2 { color: var(--text-main); margin-bottom: 10px; }
         .hero-text p { color: var(--text-secondary); }
 
-        /* المنتجات */
         .section-title { font-size: 22px; margin-bottom: 20px; border-right: 4px solid var(--primary-color); padding-right: 10px; font-weight: 700; color: var(--text-main); }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-bottom: 50px; min-height: 200px; }
 
@@ -68,30 +59,22 @@
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255,255,255,0.05); border-color: var(--primary-color); }
         
         .badge { position: absolute; top: 10px; right: 10px; background-color: var(--primary-color); color: white; padding: 2px 8px; font-size: 11px; border-radius: 4px; font-weight: bold; z-index: 1; }
-        
         .product-img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 15px; background-color: #fff; border-radius: 4px; padding: 5px; }
         .product-category { font-size: 12px; color: var(--text-secondary); margin-bottom: 5px; }
         .product-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; line-height: 1.4; height: 40px; overflow: hidden; color: var(--text-main); }
         .product-price { font-size: 18px; color: var(--primary-color); font-weight: 700; margin-bottom: 15px; }
         .old-price { font-size: 13px; color: #777; text-decoration: line-through; margin-left: 5px; }
         
-        .whatsapp-btn { 
-            width: 100%; padding: 10px; background-color: var(--whatsapp-color); color: white; border: none; border-radius: 4px; cursor: pointer; transition: 0.3s; font-family: 'Cairo', sans-serif; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: auto; 
-        }
+        .whatsapp-btn { width: 100%; padding: 10px; background-color: var(--whatsapp-color); color: white; border: none; border-radius: 4px; cursor: pointer; transition: 0.3s; font-family: 'Cairo', sans-serif; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: auto; }
         .whatsapp-btn:hover { background-color: var(--whatsapp-dark); }
 
-        /* Loader */
         .loader { grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-secondary); }
         .spinner { display: inline-block; width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: var(--primary-color); animation: spin 1s ease-in-out infinite; margin-bottom: 10px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Sticky Button */
-        .sticky-whatsapp {
-            position: fixed; bottom: 20px; right: 20px; background-color: var(--whatsapp-color); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 9999; transition: transform 0.3s;
-        }
+        .sticky-whatsapp { position: fixed; bottom: 20px; right: 20px; background-color: var(--whatsapp-color); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 9999; transition: transform 0.3s; }
         .sticky-whatsapp:hover { transform: scale(1.1); background-color: var(--whatsapp-dark); }
 
-        /* Modal */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal-content { background-color: var(--card-bg); margin: auto; padding: 0; border: 1px solid var(--border-color); width: 90%; max-width: 800px; border-radius: 8px; box-shadow: 0 5px 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; overflow: hidden; animation: fadeIn 0.3s; }
         .modal-body { display: flex; flex-direction: row; }
@@ -114,7 +97,6 @@
             .modal-img { max-height: 250px; }
         }
 
-        /* Footer */
         footer { background-color: #111; color: #ccc; padding: 40px 0 20px; margin-top: auto; border-top: 1px solid var(--border-color); }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; }
         .copyright { text-align: center; border-top: 1px solid #333; padding-top: 20px; font-size: 13px; }
@@ -122,7 +104,6 @@
 </head>
 <body>
 
-    <!-- Whatsapp Float -->
     <a href="https://wa.me/message/QMCNECNIJJT5E1" class="sticky-whatsapp" target="_blank" title="تواصل معنا">
         <i class="fab fa-whatsapp"></i>
     </a>
@@ -174,7 +155,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
     <div id="productModal" class="modal">
         <div class="modal-content">
             <div class="modal-body">
@@ -207,9 +187,9 @@
 
     <script>
         // ==========================================
-        // تم تحديث الرابط الجديد هنا
+        // معرف الملف من الصورة التي أرسلتها للتو
         // ==========================================
-        const SHEET_ID = '1lJVYMPu7yJOzyHLsFCAsXQMrB3EGB9fgZetoMIs10vE';
+        const SHEET_ID = '1MdUUbjFDZCVllEftWjRwNDMtFFGSIudagh5lLR__Ln4';
         const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/pub?output=csv`;
         const WHATSAPP_LINK_BASE = "https://wa.me/message/QMCNECNIJJT5E1";
 
@@ -228,9 +208,8 @@
                 console.error(error);
                 document.getElementById('products-container').innerHTML = `
                     <div style="grid-column: 1/-1; text-align:center; color:red; padding: 20px;">
-                        <h3>خطأ في الاتصال بالملف الجديد</h3>
-                        <p>1. تأكد أنك ضغطت على <b>Publish to Web</b> في إعدادات الملف.</p>
-                        <p>2. تأكد من كتابة <b>title</b> بشكل صحيح في العمود الأول.</p>
+                        <h3>خطأ في تحميل البيانات</h3>
+                        <p>تأكد من أن الملف منشور.</p>
                     </div>`;
             }
         }
