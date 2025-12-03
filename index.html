@@ -25,14 +25,14 @@
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
 
-        /* الشريط العلوي والهيدر */
+        /* الشريط العلوي */
         .top-bar { background-color: #111; border-bottom: 1px solid var(--border-color); padding: 5px 0; font-size: 12px; color: var(--text-secondary); }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         .top-bar .container { display: flex; justify-content: space-between; }
         
+        /* الهيدر */
         header { background-color: var(--card-bg); padding: 15px 0; box-shadow: 0 2px 5px rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
         .header-content { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-        
         .logo { font-size: 24px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: -1px; }
         
         .search-bar { flex: 1; display: flex; position: relative; }
@@ -43,14 +43,14 @@
         .action-item { display: flex; flex-direction: column; align-items: center; font-size: 12px; cursor: pointer; color: var(--text-main); }
         .action-item i { font-size: 20px; margin-bottom: 3px; color: var(--text-secondary); }
 
-        /* القائمة المتحركة */
+        /* القائمة */
         nav { background-color: #222; border-top: 1px solid var(--border-color); overflow-x: auto; white-space: nowrap; }
         .nav-menu { display: flex; gap: 0; }
         .nav-menu li { display: inline-block; }
         .nav-menu a { display: block; padding: 12px 20px; font-size: 14px; font-weight: 600; transition: 0.3s; color: var(--text-main); cursor: pointer; }
         .nav-menu a:hover, .nav-menu a.active { background-color: var(--primary-color); color: white; }
 
-        /* القسم الرئيسي */
+        /* Hero */
         .hero { 
             background-color: #111; height: 350px; display: flex; align-items: center; justify-content: center; 
             background-image: linear-gradient(45deg, #111 25%, #1a1a1a 25%, #1a1a1a 50%, #111 50%, #111 75%, #1a1a1a 75%, #1a1a1a 100%); 
@@ -60,7 +60,7 @@
         .hero-text h2 { color: var(--text-main); margin-bottom: 10px; }
         .hero-text p { color: var(--text-secondary); }
 
-        /* شبكة المنتجات */
+        /* المنتجات */
         .section-title { font-size: 22px; margin-bottom: 20px; border-right: 4px solid var(--primary-color); padding-right: 10px; font-weight: 700; color: var(--text-main); }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-bottom: 50px; min-height: 200px; }
 
@@ -80,18 +80,18 @@
         }
         .whatsapp-btn:hover { background-color: var(--whatsapp-dark); }
 
-        /* اللودر */
+        /* Loader */
         .loader { grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-secondary); }
         .spinner { display: inline-block; width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: var(--primary-color); animation: spin 1s ease-in-out infinite; margin-bottom: 10px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* زر واتساب العائم */
+        /* Sticky Button */
         .sticky-whatsapp {
             position: fixed; bottom: 20px; right: 20px; background-color: var(--whatsapp-color); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 9999; transition: transform 0.3s;
         }
         .sticky-whatsapp:hover { transform: scale(1.1); background-color: var(--whatsapp-dark); }
 
-        /* نافذة التفاصيل (Modal) */
+        /* Modal */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .modal-content { background-color: var(--card-bg); margin: auto; padding: 0; border: 1px solid var(--border-color); width: 90%; max-width: 800px; border-radius: 8px; box-shadow: 0 5px 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; overflow: hidden; animation: fadeIn 0.3s; }
         .modal-body { display: flex; flex-direction: row; }
@@ -114,7 +114,7 @@
             .modal-img { max-height: 250px; }
         }
 
-        /* الفوتر */
+        /* Footer */
         footer { background-color: #111; color: #ccc; padding: 40px 0 20px; margin-top: auto; border-top: 1px solid var(--border-color); }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 30px; }
         .copyright { text-align: center; border-top: 1px solid #333; padding-top: 20px; font-size: 13px; }
@@ -122,7 +122,7 @@
 </head>
 <body>
 
-    <!-- زر واتساب العائم -->
+    <!-- Whatsapp Float -->
     <a href="https://wa.me/message/QMCNECNIJJT5E1" class="sticky-whatsapp" target="_blank" title="تواصل معنا">
         <i class="fab fa-whatsapp"></i>
     </a>
@@ -150,7 +150,6 @@
 
     <nav>
         <div class="container">
-            <!-- سيتم ملء القائمة تلقائياً -->
             <ul class="nav-menu" id="category-list">
                 <li><a href="#" class="active" onclick="filterByCategory('all', this)">الكل</a></li>
             </ul>
@@ -175,7 +174,7 @@
         </div>
     </div>
 
-    <!-- نافذة تفاصيل المنتج -->
+    <!-- Modal -->
     <div id="productModal" class="modal">
         <div class="modal-content">
             <div class="modal-body">
@@ -208,17 +207,14 @@
 
     <script>
         // ==========================================
-        // إعدادات المتجر (مهم جداً: غير الـ ID إذا قمت بإنشاء ملف جديد)
+        // تم تحديث الرابط الجديد هنا
         // ==========================================
-        const SHEET_ID = '1MdUUbjFDZCVllEftWjRwNDMtFFGSIudagh5lLR__Ln4';
+        const SHEET_ID = '1lJVYMPu7yJOzyHLsFCAsXQMrB3EGB9fgZetoMIs10vE';
         const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/pub?output=csv`;
         const WHATSAPP_LINK_BASE = "https://wa.me/message/QMCNECNIJJT5E1";
 
         let allProducts = [];
 
-        // ==========================================
-        // جلب البيانات
-        // ==========================================
         async function fetchProducts() {
             try {
                 const response = await fetch(SHEET_URL);
@@ -226,14 +222,15 @@
                 const data = await response.text();
                 allProducts = parseCSV(data);
                 
-                generateCategories(allProducts); // إنشاء الفئات
-                renderProducts(allProducts); // عرض المنتجات
+                generateCategories(allProducts);
+                renderProducts(allProducts);
             } catch (error) {
                 console.error(error);
                 document.getElementById('products-container').innerHTML = `
                     <div style="grid-column: 1/-1; text-align:center; color:red; padding: 20px;">
-                        <h3>خطأ في الاتصال</h3>
-                        <p>تأكد من نشر ملف Google Sheet بصيغة CSV</p>
+                        <h3>خطأ في الاتصال بالملف الجديد</h3>
+                        <p>1. تأكد أنك ضغطت على <b>Publish to Web</b> في إعدادات الملف.</p>
+                        <p>2. تأكد من كتابة <b>title</b> بشكل صحيح في العمود الأول.</p>
                     </div>`;
             }
         }
@@ -241,7 +238,7 @@
         function parseCSV(csvText) {
             const lines = csvText.split('\n');
             if (lines.length < 2) return [];
-            const headers = lines[0].split(',').map(h => h.trim().replace(/\r/g, '').toLowerCase()); // تحويل العناوين لأحرف صغيرة
+            const headers = lines[0].split(',').map(h => h.trim().replace(/\r/g, '').toLowerCase());
             const result = [];
             for (let i = 1; i < lines.length; i++) {
                 if (!lines[i].trim()) continue;
@@ -256,9 +253,6 @@
             return result;
         }
 
-        // ==========================================
-        // الفئات التلقائية
-        // ==========================================
         function generateCategories(products) {
             const categories = new Set();
             products.forEach(p => {
@@ -268,7 +262,6 @@
             });
 
             const navList = document.getElementById('category-list');
-            // إبقاء زر "الكل" ومسح الباقي لتجنب التكرار إذا تم التحديث
             navList.innerHTML = '<li><a href="#" class="active" onclick="filterByCategory(\'all\', this)">الكل</a></li>';
             
             categories.forEach(cat => {
@@ -278,9 +271,6 @@
             });
         }
 
-        // ==========================================
-        // عرض المنتجات
-        // ==========================================
         function renderProducts(products) {
             const container = document.getElementById('products-container');
             container.innerHTML = ''; 
@@ -300,8 +290,6 @@
                 
                 const badgeHtml = product.badge ? `<span class="badge">${product.badge}</span>` : '';
                 const oldPriceHtml = product.old_price ? `<span class="old-price">${product.old_price}</span>` : '';
-
-                // نستخدم escape لعنوان المنتج لتجنب مشاكل علامات التنصيص
                 const safeTitle = title.replace(/'/g, "\\'");
 
                 const productHTML = `
@@ -323,9 +311,6 @@
             });
         }
 
-        // ==========================================
-        // نافذة التفاصيل والطلب
-        // ==========================================
         function openModalWithProduct(productTitle) {
             const product = allProducts.find(p => p.title === productTitle);
             if (!product) return;
@@ -333,8 +318,7 @@
             const title = product.title || '';
             const price = product.price || '';
             const img = (product.image && product.image.startsWith('http')) ? product.image : 'https://via.placeholder.com/300';
-            // هنا يتم جلب الوصف من العمود description
-            const desc = product.description || 'لا يوجد وصف إضافي لهذا المنتج حالياً. تواصل معنا للمزيد من التفاصيل.';
+            const desc = product.description || 'تواصل معنا للمزيد من التفاصيل.';
             const cat = product.category || '';
 
             document.getElementById('modalTitle').innerText = title;
@@ -343,13 +327,11 @@
             document.getElementById('modalCategory').innerText = cat;
             document.getElementById('modalImg').src = img;
 
-            // إعداد زر الواتساب داخل المودال
             const btn = document.getElementById('modalBtn');
             btn.onclick = function() {
                 sendWhatsapp(title, price, img);
             };
 
-            // عرض المودال
             const modal = document.getElementById('productModal');
             modal.style.display = "flex";
         }
@@ -379,9 +361,6 @@
             window.open(url, '_blank');
         }
 
-        // ==========================================
-        // الفلتر والبحث
-        // ==========================================
         function filterProducts() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = allProducts.filter(p => 
@@ -408,7 +387,6 @@
         document.getElementById('searchInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') filterProducts();
         });
-
     </script>
 </body>
 </html>
