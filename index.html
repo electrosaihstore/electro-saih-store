@@ -32,7 +32,7 @@
         @media (min-width: 992px) {
             .products-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 25px !important; }
             .header-content { flex-direction: row; }
-            .hero { height: 450px !important; background-attachment: fixed; } /* تأثير جميل للخلفية */
+            .hero { height: 450px !important; background-attachment: fixed; } 
             .search-bar { max-width: 500px; }
             .nav-menu { justify-content: center; gap: 20px; }
             .product-card:hover { transform: translateY(-10px); }
@@ -54,10 +54,16 @@
         @keyframes scroll-text { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
         /* Header & Nav */
-        header { background-color: var(--card-bg); padding: 15px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.4); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
+        header { background-color: var(--card-bg); padding: 10px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.4); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); }
         .header-content { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-        .logo { font-size: 26px; font-weight: 800; color: var(--primary-color); text-transform: uppercase; letter-spacing: -1px; }
-        .logo span { color: white; }
+        
+        /* تنسيق اللوغو الجديد */
+        .logo-img { 
+            height: 60px; /* التحكم في ارتفاع اللوغو */
+            width: auto; 
+            display: block;
+            border-radius: 8px; /* حواف ناعمة قليلاً */
+        }
         
         .search-bar { flex: 1; display: flex; position: relative; width: 100%; }
         .search-bar input { width: 100%; padding: 12px 15px; border: 2px solid var(--border-color); border-radius: 0 8px 8px 0; border-left: none; outline: none; font-family: 'Cairo', sans-serif; background-color: var(--input-bg); color: var(--text-main); }
@@ -214,7 +220,13 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo" onclick="switchPage('home')">Electro <span>saih.store</span></a>
+                <!-- تم استبدال الشعار النصي باللوغو -->
+                <!-- تأكد من أن اسم صورة اللوغو الخاص بك هو logo.png وفي نفس المجلد -->
+                <a href="#" class="logo" onclick="switchPage('home')">
+                    <!-- إذا لم تظهر الصورة، قم بتغيير src إلى رابط الصورة المباشر -->
+                    <img src="logo.png" alt="Electro Saih" class="logo-img"> 
+                </a>
+                
                 <div class="search-bar">
                     <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
                     <button onclick="filterProducts()"><i class="fas fa-search"></i></button>
